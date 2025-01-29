@@ -1,4 +1,14 @@
-# loan_prediction machine learning project
 
-Lecture for these project
-[youtube link ](https://www.youtube.com/playlist?list=PLA0J2h1KIAR7xoDbI1usGLVRW6_6qiLuq)
+# Loan Approval Prediction using Machine Learning
+
+This project predicts loan approval using machine learning techniques. 
+
+## Features:
+- Data preprocessing
+- Model training & evaluation
+- Web interface for predictions
+
+## How to Run:
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run the application: `python app.py`
+
