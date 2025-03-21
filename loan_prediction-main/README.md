@@ -1,14 +1,141 @@
 
-# Loan Approval Prediction using Machine Learning
+# Loan Approval Prediction Project
 
-This project predicts loan approval using machine learning techniques. 
+This project is a **Loan Approval Prediction System** developed using **Machine Learning** with a web interface powered by **Flask**. It helps banks or financial institutions predict whether a loan application should be approved based on applicant information such as income, education, employment status, etc.
 
-## Features:
-- Data preprocessing
-- Model training & evaluation
-- Web interface for predictions
+---
 
-## How to Run:
-1. Install dependencies: `pip install -r requirements.txt`
-2. Run the application: `python app.py`
+## 📁 Project Structure
+```
+loan_prediction-main/
+├── app.py                  # Main Flask application
+├── model.pkl               # Trained Machine Learning model (Pickle file)
+├── requirements.txt        # Project dependencies
+├── Procfile                # For deployment (Heroku)
+├── train.csv               # Training dataset
+├── test.csv                # Test dataset
+├── Loan Prediction.ipynb   # Jupyter Notebook - EDA, model building, training
+├── templates/
+│   ├── index.html         # Input form for prediction
+│   └── prediction.html    # Output page showing prediction result
+└── README.md               # Project documentation (you are here)
+```
+
+---
+
+## 💡 Problem Statement
+The objective is to predict whether a loan application will be approved based on information like:
+- Gender
+- Marital Status
+- Education
+- Employment Status
+- Income
+- Loan Amount
+
+---
+
+## 📊 Dataset Description
+The dataset is sourced from a loan approval system. It contains both training and testing data.
+
+### Key Columns:
+- `Loan_ID`
+- `Gender`
+- `Married`
+- `Dependents`
+- `Education`
+- `Self_Employed`
+- `ApplicantIncome`
+- `CoapplicantIncome`
+- `LoanAmount`
+- `Loan_Amount_Term`
+- `Credit_History`
+- `Property_Area`
+- `Loan_Status` *(Target column in training data)*
+
+There are:
+- 📂 **614 records in `train.csv`**
+- 📂 **368 records in `test.csv`**
+
+---
+
+## 🔍 Model Building Workflow
+1. **Data Cleaning & Preprocessing**
+2. **Exploratory Data Analysis (EDA)**
+3. **Feature Engineering**
+4. **Model Selection** (Logistic Regression)
+5. **Model Training**
+6. **Model Evaluation**
+7. **Saving Model (model.pkl)**
+8. **Web Integration using Flask**
+
+---
+
+## 🚀 How It Works (Flask Web App)
+- User enters loan application details on `index.html`
+- Form data is sent to the backend (`app.py`)
+- Model predicts if loan will be approved or not
+- Result is shown on `prediction.html`
+
+---
+
+## 🛠 Technologies Used
+- Python
+- Pandas, NumPy, Seaborn, Matplotlib
+- Scikit-learn
+- Flask
+- HTML/CSS (Bootstrap for styling)
+
+---
+
+## 📦 Installation & Run Instructions
+1. Clone the repository:
+```bash
+git clone https://github.com/mansi306/loan_prediction-main.git
+cd loan_prediction-main
+```
+2. Create virtual environment & activate it:
+```bash
+python -m venv venv
+venv\Scripts\activate   # Windows
+source venv/bin/activate # Linux/Mac
+```
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+4. Run Flask App:
+```bash
+python app.py
+```
+5. Visit in browser: `http://127.0.0.1:5000/`
+
+---
+
+## 📷 Sample Prediction Interface
+- **Form Page (index.html):** Fill details like income, education, etc.
+- **Result Page (prediction.html):** Shows whether the loan is approved or rejected.
+
+---
+
+## 📁 test.csv Preview (few rows)
+| Loan_ID | Gender | Married | Dependents | Education | Self_Employed | ApplicantIncome | CoapplicantIncome | LoanAmount | Loan_Amount_Term |
+|---------|--------|---------|------------|-----------|----------------|------------------|--------------------|------------|------------------|
+| LP001015 | Male | Yes | 0 | Graduate | No | 5720 | 0 | 110 | 360 |
+| LP001022 | Male | Yes | 1 | Graduate | No | 3076 | 1500 | 126 | 360 |
+| ... | ... | ... | ... | ... | ... | ... | ... | ... | ... |
+
+---
+
+## 🙌 Contribution
+Pull requests are welcome! For major changes, please open an issue first.
+
+---
+
+## 📃 License
+This project is open-source and free to use under the [MIT License](LICENSE).
+
+---
+
+## 📧 Contact
+Created by **Mansi306** · Feel free to reach out for queries!
 
