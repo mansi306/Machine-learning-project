@@ -111,6 +111,7 @@ python app.py
 ---
 
 ## 📷 Sample Prediction Interface
+## Home Page 
 ![Home Page Screenshot](https://github.com/mansi306/Machine-learning-project/raw/main/loan_prediction-main/static/Images/Home_page.png)
 
 ---
