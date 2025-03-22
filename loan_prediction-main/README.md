@@ -111,8 +111,7 @@ python app.py
 ---
 
 ## 📷 Sample Prediction Interface
-- **Form Page (index.html):** Fill details like income, education, etc.
-- **Result Page (prediction.html):** Shows whether the loan is approved or rejected.
+![Home Page](loan_prediction-main/static/Images/Home_page.png)
 
 ---
 
