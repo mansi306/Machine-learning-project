@@ -4,7 +4,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-# Load the trained model
+# Load the trained ML model
 with open('model.pkl', 'rb') as file:
     model = pickle.load(file)
 
@@ -12,11 +12,14 @@ with open('model.pkl', 'rb') as file:
 def home():
     return render_template("index.html")
 
+@app.route('/prediction')  # This route loads the form
+def prediction():
+    return render_template("prediction.html")
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST'])  # This route processes form data
 def predict():
     try:
-        # Extract features from form
+        # Fetch form values
         gender = request.form['gender']
         married = request.form['married']
         dependents = request.form['dependents']
@@ -24,12 +27,12 @@ def predict():
         employed = request.form['employed']
         credit = float(request.form['credit'])
         area = request.form['area']
-        ApplicantIncome = float(request.form['ApplicantIncome'])
-        CoapplicantIncome = float(request.form['CoapplicantIncome'])
-        LoanAmount = float(request.form['LoanAmount'])
-        Loan_Amount_Term = float(request.form['Loan_Amount_Term'])
+        applicant_income = float(request.form['ApplicantIncome'])
+        coapplicant_income = float(request.form['CoapplicantIncome'])
+        loan_amount = float(request.form['LoanAmount'])
+        loan_term = float(request.form['Loan_Amount_Term'])
 
-        # Process form input into model input
+        # Encode categorical features
         male = 1 if gender == "Male" else 0
         married_yes = 1 if married == "Yes" else 0
         not_graduate = 1 if education == "Not Graduate" else 0
@@ -37,35 +40,33 @@ def predict():
         semiurban = 1 if area == "Semiurban" else 0
         urban = 1 if area == "Urban" else 0
 
-        dependents_1 = dependents_2 = dependents_3 = 0
+        # Encode dependents
+        dep_1 = dep_2 = dep_3 = 0
         if dependents == '1':
-            dependents_1 = 1
+            dep_1 = 1
         elif dependents == '2':
-            dependents_2 = 1
+            dep_2 = 1
         elif dependents == '3+':
-            dependents_3 = 1
+            dep_3 = 1
 
-        # Log transformations
-        ApplicantIncomelog = np.log(ApplicantIncome)
-        totalincomelog = np.log(ApplicantIncome + CoapplicantIncome)
-        LoanAmountlog = np.log(LoanAmount)
-        Loan_Amount_Termlog = np.log(Loan_Amount_Term)
+        # Apply log transformations
+        applicant_income_log = np.log(applicant_income)
+        total_income_log = np.log(applicant_income + coapplicant_income)
+        loan_amount_log = np.log(loan_amount)
+        loan_term_log = np.log(loan_term)
 
-        # Prediction
-        features = [[credit, ApplicantIncomelog, LoanAmountlog, Loan_Amount_Termlog, totalincomelog,
-                     male, married_yes, dependents_1, dependents_2, dependents_3,
+        # Final feature vector for prediction
+        features = [[credit, applicant_income_log, loan_amount_log, loan_term_log, total_income_log,
+                     male, married_yes, dep_1, dep_2, dep_3,
                      not_graduate, employed_yes, semiurban, urban]]
+
         prediction = model.predict(features)
 
-        # Check prediction result
-        prediction_text = "Yes" if prediction[0] == 1 else "No"
-
-        return render_template("prediction.html", prediction_text=f"Loan status is {prediction_text}")
+        result = "Loan Approved ✅" if prediction[0] == 1 else "Loan Rejected ❌"
+        return render_template("prediction.html", prediction_text=result)
 
     except Exception as e:
-        # Handle any unexpected errors
-        return render_template("prediction.html", prediction_text=f"Error: {str(e)}")
+        return render_template("prediction.html", prediction_text=f"Error occurred: {str(e)}")
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
